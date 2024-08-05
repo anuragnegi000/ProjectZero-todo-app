@@ -12,20 +12,18 @@ export const Hero = () => {
       <div className=" m-2 p-2 mt-10 gap-3 ">
         <div
           className="Text text-center h-full w-full font-bold
-        text-blue-400 text-xl md:text-7xl"
+        text-blue-400 dark:text-white text-xl md:text-3xl"
         >
-          <h1>
-            {`Welcome to the world of Breaking Bounderies of your potential`}
-          </h1>
+          <h1>{`Welcome to the world of Breaking Bounderies of your `}</h1>
 
           <FlipWords
-            words={["Hard work ", "Creativity ", "Skills "]}
+            words={["Hard work ", "Creativity ", "Skills ", "potential"]}
             className={`${cn()} sm:font-xl  mb-10`}
           />
         </div>
 
         <div
-          className="absolute z-10"
+          className="absolute z-2"
           style={{
             width: "800px",
             height: "600px",

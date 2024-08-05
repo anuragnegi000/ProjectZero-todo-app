@@ -8,6 +8,7 @@ import Link from "next/link";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { ModeToggle } from "@/components/ui/toggle-dark-theme";
 import { motion } from "framer-motion";
+import { Navbar } from "./Navbar";
 
 const Home = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -32,13 +33,7 @@ const Home = () => {
           </div>
 
           <div className="hidden  group-hover:text-pink-600  md:flex flex-row  text-2xl md:text-2xl  gap-4 ">
-            <button>
-              <Link href="/todos">Home</Link>
-            </button>
-            <button>Work</button>
-            <button>About</button>
-            <button>Contact</button>
-            <button>Blog</button>
+            <Navbar />
           </div>
 
           <div className="buttons-users hidden md:flex flex-row gap-x-4">

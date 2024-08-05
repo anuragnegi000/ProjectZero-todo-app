@@ -1,7 +1,5 @@
 import React from "react";
-import Homeform from "./begintodos/Framer";
-import FrameForm from "./begintodos/Framer";
-import { SelectForm } from "./begintodos/neForm";
+import FrameForm from "./Framepage/Framer";
 
 const Todospages = () => {
   return (
