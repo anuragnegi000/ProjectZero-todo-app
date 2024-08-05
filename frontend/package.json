@@ -11,6 +11,7 @@
   "dependencies": {
     "@clerk/nextjs": "^5.2.8",
     "@hookform/resolvers": "^3.9.0",
+    "@internationalized/date": "^3.5.5",
     "@radix-ui/react-dialog": "^1.1.1",
     "@radix-ui/react-dropdown-menu": "^2.1.1",
     "@radix-ui/react-label": "^2.1.0",
@@ -43,6 +44,7 @@
     "tailwindcss-animate": "^1.0.7",
     "three": "^0.167.0",
     "three-globe": "^2.31.1",
+    "timepicker": "^1.14.1",
     "use-media-query-hook": "^0.3.0",
     "use-media-query-react": "^0.1.2",
     "vaul": "^0.9.1",

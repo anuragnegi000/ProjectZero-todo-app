@@ -1,6 +1,7 @@
 import React from "react";
 import { BreadcrumbTodos } from "./breadcrum";
 import MainTodos from "./MainTodos";
+import { Card } from "@/components/ui/card";
 
 const TodosPage = () => {
   return (

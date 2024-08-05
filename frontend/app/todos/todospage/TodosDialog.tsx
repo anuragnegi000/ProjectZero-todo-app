@@ -14,6 +14,8 @@ import { Label } from "@/components/ui/label";
 
 import { PlusIcon } from "lucide-react";
 import { DatePicker } from "../Framepage/date-picker";
+import { TodosCombobox } from "./TodosComboBox";
+import { CommandInput } from "@/components/ui/command";
 
 export function TodosDialog() {
   return (
@@ -42,7 +44,10 @@ export function TodosDialog() {
               className="col-span-3"
             />
           </div>
-
+          <div className="flex flex-row items-center gap-8 ">
+            <Label htmlFor="picture"> Description</Label>
+            <Input id="email" type="email" />
+          </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="name" className="text-right">
               Pick a Date
@@ -50,9 +55,22 @@ export function TodosDialog() {
 
             <DatePicker />
           </div>
+
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="name" className="text-right">
+              Pick Priority
+            </Label>
+
+            <TodosCombobox />
+          </div>
+
+          <div className="flex flex-row items-center gap-8 ">
+            <Label htmlFor="picture">Picture</Label>
+            <Input id="picture" type="file" />
+          </div>
         </div>
         <DialogFooter>
-          <Button type="submit">Save changes</Button>
+          <Button type="submit">Create Todo</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

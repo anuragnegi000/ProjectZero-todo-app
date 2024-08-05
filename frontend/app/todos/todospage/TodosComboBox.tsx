@@ -1,5 +1,5 @@
 "use client";
-
+import { Input } from "@/components/ui/input";
 import * as React from "react";
 import { Check, ChevronsUpDown } from "lucide-react";
 
@@ -11,6 +11,7 @@ import {
   CommandGroup,
   CommandInput,
   CommandItem,
+  CommandList,
 } from "@/components/ui/command";
 import {
   Popover,
@@ -20,24 +21,21 @@ import {
 
 const frameworks = [
   {
-    value: "next.js",
-    label: "Next.js",
+    value: "Hard",
+    label: "Hard",
+  },
+
+  {
+    value: "Medium",
+    label: "Medium",
   },
   {
-    value: "sveltekit",
-    label: "SvelteKit",
+    value: "Easy",
+    label: "Easy",
   },
   {
-    value: "nuxt.js",
-    label: "Nuxt.js",
-  },
-  {
-    value: "remix",
-    label: "Remix",
-  },
-  {
-    value: "astro",
-    label: "Astro",
+    value: "Important",
+    label: "Important",
   },
 ];
 
@@ -64,26 +62,29 @@ export function TodosCombobox() {
         <Command>
           <CommandInput placeholder="Search framework..." />
           <CommandEmpty>No framework found.</CommandEmpty>
-          <CommandGroup>
-            {frameworks.map((framework) => (
-              <CommandItem
-                key={framework.value}
-                value={framework.value}
-                onSelect={(currentValue) => {
-                  setValue(currentValue === value ? "" : currentValue);
-                  setOpen(false);
-                }}
-              >
-                <Check
-                  className={cn(
-                    "mr-2 h-4 w-4",
-                    value === framework.value ? "opacity-100" : "opacity-0",
-                  )}
-                />
-                {framework.label}
-              </CommandItem>
-            ))}
-          </CommandGroup>
+
+          <CommandList>
+            <CommandGroup>
+              {frameworks.map((framework) => (
+                <CommandItem
+                  key={framework.value}
+                  value={framework.value}
+                  onSelect={(currentValue) => {
+                    setValue(currentValue === value ? "" : currentValue);
+                    setOpen(false);
+                  }}
+                >
+                  <Check
+                    className={cn(
+                      "mr-2 h-4 w-4",
+                      value === framework.value ? "opacity-100" : "opacity-0",
+                    )}
+                  />
+                  {framework.label}
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          </CommandList>
         </Command>
       </PopoverContent>
     </Popover>
