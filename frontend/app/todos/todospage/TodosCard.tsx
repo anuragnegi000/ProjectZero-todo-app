@@ -1,5 +1,4 @@
-import { BellRing, Check, EllipsisVerticalIcon } from "lucide-react";
-
+import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,39 +9,56 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Switch } from "@/components/ui/switch";
+
 import { TodosEdit } from "./TodosEdit";
-import { Telemetry } from "next/dist/telemetry/storage";
 
-const notifications = [
-  {
-    title: "Date",
-    description: "05/05/2023",
-  },
-  {
-    title: "Priority",
-    description: "Easy",
-  },
-  {
-    title: "Notes",
-    description: " I will complete this task",
-  },
-];
+// Define the structure of a Todo item
+type Todo = {
+  id: number;
+  TodoName: string;
+  Description: string;
+  TodoDate: string;
+  Priority: string;
+  Picture: string;
+};
 
-type CardProps = React.ComponentProps<typeof Card>;
+// Define the properties expected by the TodosCard component
+type CardProps = React.ComponentProps<typeof Card> & {
+  todo: Todo;
+};
 
-export function TodosCard({ className, ...props }: CardProps) {
+export function TodosCard({ className, todo }: CardProps) {
+  // Dynamically create notifications from the todo object
+  const notifications = [
+    {
+      title: "Date",
+      description: todo.TodoDate,
+    },
+    {
+      title: "Priority",
+      description: todo.Priority,
+    },
+    {
+      title: "Description",
+      description: todo.Description,
+    },
+    {
+      title: "Picture",
+      description: todo.Picture,
+    },
+  ];
+
   return (
-    <Card className={cn("w-[380px]", className)} {...props}>
+    <Card className={cn("w-[380px]", className)}>
       <CardHeader>
         <div className="flex items-center justify-between">
-          <CardTitle>{"Todos Title "}</CardTitle>
+          <CardTitle>{todo.TodoName}</CardTitle>
           <CardTitle>
             <TodosEdit />
           </CardTitle>
         </div>
 
-        <CardDescription>{"Todos Title "}</CardDescription>
+        <CardDescription>{todo.Description}</CardDescription>
       </CardHeader>
       <CardContent className="grid gap-4">
         <div>

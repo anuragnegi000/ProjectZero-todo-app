@@ -2,6 +2,7 @@ import React from "react";
 import { TodosDialog } from "./TodosDialog";
 
 import { TodosCard } from "./TodosCard";
+import { FakeTodos } from "@/app/utils";
 
 const MainTodos = () => {
   return (
@@ -11,14 +12,9 @@ const MainTodos = () => {
       </div>
 
       <div className=" grid grid-cols-4 gap-3  ">
-        <TodosCard />
-        <TodosCard />
-        <TodosCard />
-        <TodosCard />
-        <TodosCard />
-        <TodosCard />
-        <TodosCard />
-        <TodosCard />
+        {FakeTodos.map((todo) => (
+          <TodosCard key={todo.id} todo={todo} />
+        ))}
       </div>
     </div>
   );

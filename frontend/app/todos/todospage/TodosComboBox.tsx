@@ -1,10 +1,9 @@
 "use client";
-import { Input } from "@/components/ui/input";
-import * as React from "react";
-import { Check, ChevronsUpDown } from "lucide-react";
 
-import { cn } from "@/lib/utils";
+import React from "react";
 import { Button } from "@/components/ui/button";
+import { Check, ChevronsUpDown } from "lucide-react";
+import { cn } from "@/lib/utils";
 import {
   Command,
   CommandEmpty,
@@ -20,28 +19,19 @@ import {
 } from "@/components/ui/popover";
 
 const frameworks = [
-  {
-    value: "Hard",
-    label: "Hard",
-  },
-
-  {
-    value: "Medium",
-    label: "Medium",
-  },
-  {
-    value: "Easy",
-    label: "Easy",
-  },
-  {
-    value: "Important",
-    label: "Important",
-  },
+  { value: "Hard", label: "Hard" },
+  { value: "Medium", label: "Medium" },
+  { value: "Easy", label: "Easy" },
+  { value: "Important", label: "Important" },
 ];
 
-export function TodosCombobox() {
+type TodosComboboxProps = {
+  value: string;
+  onChange: (value: string) => void;
+};
+
+export function TodosCombobox({ value, onChange }: TodosComboboxProps) {
   const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState("");
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -54,15 +44,14 @@ export function TodosCombobox() {
         >
           {value
             ? frameworks.find((framework) => framework.value === value)?.label
-            : "Select framework..."}
+            : "Select priority..."}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0">
         <Command>
-          <CommandInput placeholder="Search framework..." />
-          <CommandEmpty>No framework found.</CommandEmpty>
-
+          <CommandInput placeholder="Search priority..." />
+          <CommandEmpty>No priority found.</CommandEmpty>
           <CommandList>
             <CommandGroup>
               {frameworks.map((framework) => (
@@ -70,7 +59,7 @@ export function TodosCombobox() {
                   key={framework.value}
                   value={framework.value}
                   onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue);
+                    onChange(currentValue === value ? "" : currentValue);
                     setOpen(false);
                   }}
                 >

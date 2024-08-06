@@ -1,0 +1,24 @@
+{
+  "name": "my-backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@prisma/client": "^5.17.0",
+    "add": "^2.0.6",
+    "drizzle-orm": "^0.32.2",
+    "express": "^4.19.2",
+    "prisma": "^5.17.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
+  }
+}
