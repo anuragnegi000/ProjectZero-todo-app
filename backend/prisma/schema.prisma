@@ -14,10 +14,11 @@ datasource db {
 }
 
 model User {
-  id     Int     @id @default(autoincrement())
-  email  String  @unique
+  id       Int     @id @default(autoincrement())
+  email    String  @unique
+  name     String
   password String
-  frames Frame[]
+  frames   Frame[]
 }
 
 model Frame {
@@ -32,8 +33,9 @@ model Todo {
   id          Int      @id @default(autoincrement())
   name        String
   description String
-  date        DateTime
-  priority    String
-  frameId     Int
-  frame       Frame    @relation(fields: [frameId], references: [id])
+  priority    String?
+  frameId     Int?
+  frame       Frame?    @relation(fields: [frameId], references: [id])
 }
+
+// Enum for priority field
