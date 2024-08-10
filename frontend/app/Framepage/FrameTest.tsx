@@ -2,9 +2,21 @@
 import React, { useState } from "react";
 import { DialogFrame } from "./popover";
 import { PlaceholdersAndVanishInput } from "@/components/ui/placeholders-and-vanish-input";
+import { ObjectTodos } from "../utils";
 
 interface FrameDataProps {
   onClick: (index: number) => void;
+}
+
+interface Todo {
+  title: string;
+  date: string;
+}
+
+interface ObjectTodo {
+  title: string;
+  date: string;
+  todos: Todo[];
 }
 
 const FrameTest: React.FC = () => {
@@ -16,22 +28,10 @@ const FrameTest: React.FC = () => {
     "How to assemble your own PC?",
   ];
 
-  const todos = [
-    { title: "Organize workspace", date: "2024-08-24" },
-    { title: "Plan weekend trip", date: "2024-08-25" },
-    { title: "Attend webinar on AI", date: "2024-08-26" },
-    { title: "Clean the house", date: "2024-08-27" },
-    { title: "Start a new project", date: "2024-08-28" },
-    { title: "Review TypeScript basics", date: "2024-08-29" },
-  ];
-
-  const [selectedTodo, setSelectedTodo] = useState<{
-    title: string;
-    date: string;
-  } | null>(null);
+  const [selectedTodo, setSelectedTodo] = useState<ObjectTodo | null>(null);
 
   const handleIndexClick = (index: number) => {
-    setSelectedTodo(todos[index]);
+    setSelectedTodo(ObjectTodos[index]);
   };
 
   return (
@@ -61,12 +61,25 @@ const FrameTest: React.FC = () => {
             <FrameData onClick={handleIndexClick} />
           </div>
         </div>
-        <div className="w-full h-screen shadow-lg border rounded-2xl p-2 m-4">
-          <h1>Selected Todo</h1>
+        <div className="Tone w-full h-[80vh] shadow-lg border rounded-2xl p-2 m-4">
           {selectedTodo ? (
-            <div>
-              <h2>{selectedTodo.title}</h2>
-              <p>{selectedTodo.date}</p>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 overflow-auto p-2">
+              <h2 className="text-3xl font-bold col-span-full">
+                {selectedTodo.title}
+              </h2>
+              <p className="text-xl font-bold text-gray-400 col-span-full">
+                {selectedTodo.date}
+              </p>
+              <ul className="todo-list max-h-[60vh] overflow-auto col-span-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {selectedTodo.todos.map((todo, index) => (
+                  <li
+                    key={index}
+                    className="m-4 p-4 border border-blue-600 rounded-2xl text-xl"
+                  >
+                    {todo.title} - {todo.date}
+                  </li>
+                ))}
+              </ul>
             </div>
           ) : (
             <p>Please select a todo from the list.</p>
@@ -78,19 +91,10 @@ const FrameTest: React.FC = () => {
 };
 
 export function FrameData({ onClick }: FrameDataProps) {
-  const todos = [
-    { title: "Organize workspace", date: "2024-08-24" },
-    { title: "Plan weekend trip", date: "2024-08-25" },
-    { title: "Attend webinar on AI", date: "2024-08-26" },
-    { title: "Clean the house", date: "2024-08-27" },
-    { title: "Start a new project", date: "2024-08-28" },
-    { title: "Review TypeScript basics", date: "2024-08-29" },
-  ];
-
   return (
     <div className="relative top-8 flex m-2 p-2 flex-col rounded-lg">
       <div className="flex flex-col rounded-2xl gap-4">
-        {todos.map((todo, index) => (
+        {ObjectTodos.map((todo, index) => (
           <button
             onClick={() => onClick(index)}
             key={index}
@@ -98,6 +102,7 @@ export function FrameData({ onClick }: FrameDataProps) {
           >
             <h1>{todo.title}</h1>
             <h2>{todo.date}</h2>
+            <h2 className="text-blue-600">{todo.todos.length}</h2>
           </button>
         ))}
       </div>

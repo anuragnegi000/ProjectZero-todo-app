@@ -1,0 +1,115 @@
+/* Base container style */
+.container {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  padding: 1rem;
+  max-width: 1200px;
+}
+
+/* Navbar style */
+.navbar {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.logo {
+  align-self: center;
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+/* Heading style */
+.heading {
+  text-align: center;
+  margin: 1rem 0;
+}
+
+/* Content layout */
+.content {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 1rem;
+}
+
+/* Frame list style */
+.frame-list {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 1rem;
+}
+
+/* Grid for the frame data */
+.frame-data-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+/* Style for each grid item */
+.grid-item {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+  background: #f9f9f9;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.grid-item:hover {
+  background: #e0e0e0;
+}
+
+.todo-count {
+  color: #007bff;
+}
+
+/* Selected todo style */
+.selected-todo {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  background: #f9f9f9;
+}
+
+/* Todo details */
+.todo-details {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.todo-title {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.todo-date {
+  font-size: 1.2rem;
+  color: gray;
+}
+
+.todo-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.todo-item {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  background: #f9f9f9;
+  margin-bottom: 0.5rem;
+}
