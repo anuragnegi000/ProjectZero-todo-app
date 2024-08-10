@@ -84,8 +84,14 @@ app.post("/signin", async (req, res) => {
   }
 });
 app.post("/todo", auth, async (req, res) => {
-    const { name, description} = req.body;
-  
+    const {name,description,priority,frameId}=req.body;
+
+    if(!name||!description||!frameId){
+      res.status(400).json({
+        msg:"Something wrong with inputs"
+      })
+    }
+
     // Input validation
   
     try {
@@ -95,6 +101,8 @@ app.post("/todo", auth, async (req, res) => {
         data: {
           name,
           description,
+          priority,
+          frameId
         },
       });
   
