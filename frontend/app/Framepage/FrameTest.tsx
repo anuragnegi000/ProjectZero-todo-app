@@ -11,6 +11,17 @@ import {
   useReducedMotion,
 } from "framer-motion";
 import Draggable from "react-draggable";
+import {
+  AlertDialog,
+  AlertDialogTrigger,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogCancel,
+  AlertDialogAction,
+} from "@/components/ui/alert-dialog";
 
 interface FrameDataProps {
   onClick: (index: number) => void;
@@ -57,7 +68,7 @@ const FrameTest: React.FC = () => {
   };
 
   return (
-    <div className="m-2 p-2 flex flex-col">
+    <div className="m-2 p-2 flex flex-col relative">
       <nav className="relative m-2 p-2 border rounded-lg">
         <div className="block">Logo</div>
         <div className="flex justify-end w-auto gap-4">
@@ -79,7 +90,7 @@ const FrameTest: React.FC = () => {
             <FrameData onClick={handleIndexClick} />
           </div>
         </div>
-        <div className="Tone w-full h-[80vh] shadow-lg border rounded-2xl p-4 m-2 overflow-auto">
+        <div className="Tone w-full h-[80vh] shadow-lg border rounded-2xl p-4 m-2 overflow-auto relative">
           <AnimatePresence>
             {selectedTodo ? (
               <motion.div
@@ -110,16 +121,32 @@ const FrameTest: React.FC = () => {
                           "0px 0px 15px rgba(0, 0, 0, 0.3), 0px 0px 25px rgba(0, 0, 0, 0.1)",
                       }}
                     >
-                      <motion.div
-                        className="text-center text-white"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.3, delay: index * 0.05 }}
-                        style={{ cursor: "grab" }}
-                      >
-                        <h2 className="text-xl font-bold">{todo.title}</h2>
-                        <p className="text-sm">{todo.date}</p>
-                      </motion.div>
+                      <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                          <motion.button
+                            className="text-center text-white"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.3, delay: index * 0.05 }}
+                            style={{ cursor: "grab" }}
+                          >
+                            <h2 className="text-xl font-bold">{todo.title}</h2>
+                            <p className="text-sm">{todo.date}</p>
+                          </motion.button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>{todo.title}</AlertDialogTitle>
+                            <AlertDialogDescription>
+                              {`This action cannot be undone. You're interacting with todo titled "${todo.title}" created on "${todo.date}".`}
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                            <AlertDialogAction>Continue</AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
                     </motion.div>
                   </Draggable>
                 ))}
