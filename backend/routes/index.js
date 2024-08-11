@@ -1,10 +1,14 @@
 const express=require("express");
+const {auth}=require("../middleware.js");
 const router=express.Router();
 
-const {getAllProducts,getAllProductsTesting}=require("../controllers/products");
 
-router.get("/",getAllProducts);
-router.route("/testing").get(getAllProductsTesting);
+const {frame}=require("../controllers/todo");
+const {signup,signin}=require("../controllers/user");  
 
+router.post("/signup",signup);
+router.post("/signin",signin);
+
+router.post("/frame",auth,frame);
 
 module.exports=router;
