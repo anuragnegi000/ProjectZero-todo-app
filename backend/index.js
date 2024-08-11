@@ -3,6 +3,8 @@ import { PrismaClient } from "@prisma/client";
 import jwt from "jsonwebtoken";
 import { auth } from "./middleware.js";
 
+// import router from "./router/index.js";
+
 const Prisma = new PrismaClient();
 
 const app = express();
@@ -83,6 +85,27 @@ app.post("/signin", async (req, res) => {
     });
   }
 });
+
+
+app.put("/todo",auth,async(req,res)=>{
+  const {id}=req.body;
+  try{
+    const todo=await Prisma.todo.update({
+      where:{
+        id:id,
+      },
+      data:{
+        name:req.body.name,
+        description:req.body.description,
+      }
+    })
+  }catch(e){
+    res.status(500).json({
+      msg:"Something went wrong",
+    })
+  }
+})
+
 app.post("/todo", auth, async (req, res) => {
     const { name, description} = req.body;
   
