@@ -2,8 +2,11 @@
     const express = require("express");
     const prisma = new PrismaClient();
     const jwt=require("jsonwebtoken");
+    const cors=require("cors");
 
+   
     const router = express.Router();
+    router.use(cors());
 
     const signup = async (req, res) => {
         const { email, name, password } = req.body;
