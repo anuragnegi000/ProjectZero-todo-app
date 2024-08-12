@@ -9,8 +9,10 @@ function auth(req,res,next){
         })
     }
     try{
-        const decoded=jwt.verify(token,process.env.JWT_SECRET);z
+        const decoded=jwt.verify(token,process.env.JWT_SECRET);
         req.user=decoded;
+        const userId=decoded.id;
+        req.userId=userId;
         next();
     }
     catch(e){
