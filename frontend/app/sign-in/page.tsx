@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { redirect } from "next/dist/server/api-utils";
 
 export function LoginPage() {
   interface UserAuth {
@@ -39,7 +40,7 @@ export function LoginPage() {
     e.preventDefault();
     console.log("user Created");
     console.log(name, email, password);
-
+    // userAuth  contains the user information to be sent to the server
     const userAuth = { name, email, password };
 
     try {
@@ -54,7 +55,6 @@ export function LoginPage() {
         },
       );
 
-      localStorage.setItem("token", response.token);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
