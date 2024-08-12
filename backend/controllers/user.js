@@ -25,10 +25,14 @@ const signup = async (req, res) => {
                 password,
             },
         });
+        const token=jwt.sign({
+            id:user.id,
+        },process.env.JWT_SECRET);
 
         // Send success response
         return res.status(201).json({
             user,
+            token:token,
             message: "User created successfully",
         });
     } catch (e) {
@@ -48,8 +52,14 @@ const signin =async(req,res)=>{
                 password
             }
         })
+        const token=jwt.sign({
+            id:user.id,
+            email:user.email,
+        },process.env.JWT_SECRET);
+
         res.status(200).json({
             msg:"User Logged in Successfully",
+            token:token,    
             user,
         })
     }catch(e){
