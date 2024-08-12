@@ -11,7 +11,19 @@ import {
   useReducedMotion,
 } from "framer-motion";
 import Draggable from "react-draggable";
+import {
+  AlertDialog,
+  AlertDialogTrigger,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogCancel,
+  AlertDialogAction,
+} from "@/components/ui/alert-dialog";
 
+import AddTodos, { ThreedotsIcon } from "./AddTodos";
 interface FrameDataProps {
   onClick: (index: number) => void;
 }
@@ -28,12 +40,11 @@ interface ObjectTodo {
 }
 
 const colors = [
-  "bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500",
-  "bg-gradient-to-r from-green-400 via-blue-500 to-purple-600",
-  "bg-gradient-to-r from-blue-500 to-teal-400",
-  "bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500",
-  "bg-gradient-to-r from-yellow-500 via-red-500 to-purple-500",
-  "bg-gradient-to-r from-teal-500 via-green-500 to-blue-500",
+  "bg-gradient-to-r from-black via-black to-black ",
+  "bg-gradient-to-r from-black via-black to-black ",
+  "bg-gradient-to-r from-black via-black to-black ",
+  "bg-gradient-to-r from-black via-black to-black ",
+  "bg-gradient-to-r from-black via-black to-black ",
 ];
 
 const FrameTest: React.FC = () => {
@@ -44,8 +55,20 @@ const FrameTest: React.FC = () => {
     "Write a Javascript method to reverse a string",
     "How to assemble your own PC?",
   ];
+  interface Todo {
+    id: string;
+    title: string;
+    date: string;
+  }
+
+  interface ObjectTodo {
+    title: string;
+    date: string;
+    todos: Todo[];
+  }
 
   const [selectedTodo, setSelectedTodo] = useState<ObjectTodo | null>(null);
+  const [previousTodo, setPreviousTodo] = useState<ObjectTodo | null>(null);
   const { scrollY } = useScroll();
   const prefersReducedMotion = useReducedMotion();
 
@@ -57,7 +80,7 @@ const FrameTest: React.FC = () => {
   };
 
   return (
-    <div className="m-2 p-2 flex flex-col">
+    <div className="m-2 p-2 flex flex-col relative">
       <nav className="relative m-2 p-2 border rounded-lg">
         <div className="block">Logo</div>
         <div className="flex justify-end w-auto gap-4">
@@ -79,7 +102,16 @@ const FrameTest: React.FC = () => {
             <FrameData onClick={handleIndexClick} />
           </div>
         </div>
-        <div className="Tone w-full h-[80vh] shadow-lg border rounded-2xl p-4 m-2 overflow-auto">
+
+        <div className="Tone w-full h-screen shadow-lg border rounded-2xl p-4 m-2 overflow-auto relative">
+          {/*TODO: Add a plus icon and grip icon
+
+          <div className="w-full border h-auto  rounded-lg m-0 mb-6 p-2 flex flex-row justify-between">
+            <PlusIcon className="w-10 h-10 text-blue-600" />
+            <GripVertical className="w-10 h-10 text-blue-600" />
+          </div>
+*/}
+
           <AnimatePresence>
             {selectedTodo ? (
               <motion.div
@@ -92,10 +124,6 @@ const FrameTest: React.FC = () => {
                 {selectedTodo.todos.map((todo, index) => (
                   <Draggable key={index}>
                     <motion.div
-                      whileHover={{
-                        scale: prefersReducedMotion ? 1.05 : 1.1,
-                        rotateY: prefersReducedMotion ? 0 : 10,
-                      }}
                       whileTap={{ scale: 0.95 }}
                       drag
                       dragConstraints={{ top: 0, left: 0, right: 0, bottom: 0 }}
@@ -110,24 +138,57 @@ const FrameTest: React.FC = () => {
                           "0px 0px 15px rgba(0, 0, 0, 0.3), 0px 0px 25px rgba(0, 0, 0, 0.1)",
                       }}
                     >
-                      <motion.div
-                        className="text-center text-white"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.3, delay: index * 0.05 }}
-                        style={{ cursor: "grab" }}
-                      >
-                        <h2 className="text-xl font-bold">{todo.title}</h2>
-                        <p className="text-sm">{todo.date}</p>
-                      </motion.div>
+                      <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                          <motion.div
+                            className="text-center text-white flex flex-col m-0 "
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.3, delay: index * 0.05 }}
+                            style={{ cursor: "grab" }}
+                          >
+                            <div className=" flex flex-row-reverse  justify-between gap-4 border ">
+                              {/* TODO: Three dot add the component here   */}
+                              <ThreedotsIcon
+                                selectedTodo={selectedTodo}
+                                setSelectedTodo={setSelectedTodo}
+                              />
+                              <h2 className="text-sm flex     font-sm">
+                                {todo.title}
+                              </h2>
+                            </div>
+                            <p className="text-sm">{todo.date}</p>
+                          </motion.div>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>{todo.title}</AlertDialogTitle>
+                            <AlertDialogDescription>
+                              {`This action cannot be undone. You're interacting with todo titled "${todo.title}" created on "${todo.date}".`}
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                            <AlertDialogAction>Continue</AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
                     </motion.div>
                   </Draggable>
                 ))}
               </motion.div>
             ) : (
-              <p>Please select a todo from the list.</p>
+              <h1 className="text-7xl text-center font-bold h-screen ">
+                Please select a todo from the list.
+              </h1>
             )}
           </AnimatePresence>
+          <div className="relative  inline-block  m-auto p-8   ">
+            <div className="fixed flex-row    top-auto left-0  right-5 m-6 bottom-10  flex justify-end  ">
+              {/* TODO: Add a plus icon and grip icon */}
+              <AddTodos />
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -137,7 +198,7 @@ const FrameTest: React.FC = () => {
 export function FrameData({ onClick }: FrameDataProps) {
   return (
     <motion.div
-      className="relative top-8 m-2 p-2 flex flex-col rounded-lg"
+      className="relative top-8 m-2 p-2 flex flex-col rounded-lg h-screen"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
@@ -152,7 +213,7 @@ export function FrameData({ onClick }: FrameDataProps) {
           >
             <h1>{todo.title}</h1>
             <h2>{todo.date}</h2>
-            <h2 className="text-blue-600">{todo.todos.length}</h2>
+            <h2 className="text-blue-600 text-sm">{todo.todos.length}</h2>
           </motion.button>
         ))}
       </div>
